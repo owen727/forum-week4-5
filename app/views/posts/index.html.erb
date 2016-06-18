@@ -1,3 +1,5 @@
+<p id="alert"><%= alert %></p>
+
 
 <h1>Super Information</h1>
 
@@ -13,14 +15,12 @@
     <% @posts.each do |p| %>
       <tr>
         <td><%=link_to p.title , p %></td> 
-        <td><%= link_to "Delete Post", p ,:method => :delete %></td> 
+        <td><%= link_to "Delete Post", p ,:method => :delete, :data => { :confirm => "Are you sure?" }  %></td> 
       </tr>
     <% end %>
   </tbody>
 
 </table>
-
-
 
 <br>
 <br>

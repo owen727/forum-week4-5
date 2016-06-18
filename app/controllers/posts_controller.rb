@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to @post
+      redirect_to @post, :notice => 'New Post successfully created.'
     else
       render new_post_path
     end
@@ -30,24 +30,22 @@ class PostsController < ApplicationController
   def edit
   end
 
-  def update
-    
+
+  def update    
     if @post.update(post_params)
-      redirect_to post_path
+      redirect_to post_path, :notice => 'Post successfully edited.'
     else
-      render :action => :edit
+      render :action => :edit #為什麼 edit_post_path不行？
     end
-
-
   end
 
 
 
-  def destroy
-    
+  def destroy    
     @post.destroy
-    redirect_to posts_path   
+    redirect_to posts_path, :alert => 'Post Deleted.'
   end
+
 
 
 
