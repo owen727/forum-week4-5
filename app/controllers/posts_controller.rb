@@ -1,5 +1,9 @@
 class PostsController < ApplicationController
 
+  before_action :find_post, :only => [:show, :edit, :update, :destroy] 
+  #設定當前post
+
+
   def index
     # @posts = Post.all 
     @posts = Post.page(params[:page]).per(15)  #分頁設法
@@ -19,17 +23,17 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    
     
   end
 
 
   def edit
-    @post = Post.find(params[:id])  
+      
   end
 
   def update
-    @post = Post.find(params[:id])
+    
     if @post.update(post_params)
       redirect_to post_path
     end
@@ -40,7 +44,7 @@ class PostsController < ApplicationController
 
 
   def destroy
-    @post = Post.find(params[:id])
+    
     @post.destroy
     redirect_to posts_path   
   end
@@ -50,6 +54,10 @@ class PostsController < ApplicationController
 
 
   private
+
+    def find_post
+       @post = Post.find(params[:id]) 
+    end
 
     def post_params
       params.require(:post).permit(:title, :content)
