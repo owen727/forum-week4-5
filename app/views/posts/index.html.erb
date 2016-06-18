@@ -1,0 +1,28 @@
+
+<h1>Super Information</h1>
+
+<table>
+
+  <!-- <th>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </th> -->
+    
+  <tbody>
+    <% @posts.each do |p| %>
+      <tr>
+        <td><%=link_to p.title , p %></td> 
+        <td><%= link_to "Delete Post", p ,:method => :delete %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+
+
+<br>
+<br>
+<%= link_to "Post New Information", new_post_path %>
+<br>
