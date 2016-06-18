@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'devise'
 gem 'better_errors'
-
+gem 'kaminari'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
