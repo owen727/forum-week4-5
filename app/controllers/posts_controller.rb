@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :find_post, :only => [:show, :edit, :update, :destroy] 
-  #設定當前post
+  before_action :find_post, :only => [:show, :edit, :update, :destroy] #設定當前post
 
 
   def index
@@ -17,25 +16,26 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.save
+    if @post.save
       redirect_to @post
-    
+    else
+      render new_post_path
+    end
   end
 
   def show
-    
-    
   end
 
 
   def edit
-      
   end
 
   def update
     
     if @post.update(post_params)
       redirect_to post_path
+    else
+      render :action => :edit
     end
 
 

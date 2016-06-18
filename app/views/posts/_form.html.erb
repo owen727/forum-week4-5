@@ -1,5 +1,14 @@
 
+
+
 <%=form_for @post do |f| %>
+
+  <% if @post.errors.any? %>
+    
+    <p> <%=@post.errors.full_messages[0] %> </p>  
+      
+  <% end %>
+  
   
   <%=f.label :title %>
   <br>
