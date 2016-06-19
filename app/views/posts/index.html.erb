@@ -15,7 +15,15 @@
     <% @posts.each do |p| %>
       <tr>
         <td><%=link_to p.title , p %></td> 
-        <td><%= link_to "Delete Post", p ,:method => :delete, :data => { :confirm => "Are you sure?" }  %></td> 
+
+        <!-- <td> <%=link_to "Edit", p, :method => :patch %> </td> -->
+
+        <td>
+          <%= link_to "Delete", p ,:method => :delete, :data => { :confirm => "Are you sure?" } %>
+        </td>
+        
+
+
       </tr>
     <% end %>
   </tbody>
@@ -23,11 +31,11 @@
 </table>
 
 <br>
+
+<% if current_user  %>   <!-- 有登入才顯示新增post表格 -->
+  <h2>Post Something</h2>
+  <%= render "form" %>
+<% end %>
 <br>
-<%= link_to "Post New Information", new_post_path %>
-<br>
-
-
-
 <br>
 <%= paginate @posts %>  <!-- kaminari設分頁 -->

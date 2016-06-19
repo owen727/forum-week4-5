@@ -8,7 +8,32 @@
 </head>
 <body>
 
+<% if current_user %>
+    
+    Hello, <%= current_user.nickname %> 
+    <br> 
+    <br>
+
+    <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
+    <%= link_to('修改資料', edit_registration_path(:user)) %>
+  <% else %>
+    <%= link_to('註冊', new_registration_path(:user)) %> |
+    <%= link_to('登入', new_session_path(:user)) %>
+  <% end %>
+
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
 <%= yield %>
+
+
+
+
+
 
 </body>
 </html>
