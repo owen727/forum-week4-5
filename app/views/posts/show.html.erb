@@ -2,65 +2,51 @@
 
 <h2><%= @post.title %></h2>
 
+<%= image_tag @post.avatar.url(:medium) %> <br>
+
 <%= @post.content %>
 
 
 <br>
 <br>
 <br>
-<%=link_to "Edit Post", edit_post_path %>
+
 <br>
 <br>
 
 
 <h2><%="This Post Has #{@post.comments.count} Replys" %></h2>
 
+<%if @user == current_user%>
+  <%= link_to"New Comment", new_post_comment_path(@post.id) %>
+<%end%>
+
+
 <% @post.comments.each do |c| %>
   
   <p> 
     <span> <%= c.description %> </span> Posted by 
-    <%if c.user %>
-      <strong> <%=c.user.nickname%> </strong>at <%= c.created_at.localtime%>
-    <%else%>
-      <%= "Guest" %>
-    <% end %>
-
-   <% if @post.errors.any? %>
     
-    <p> <%=@post.errors.full_messages[0] %> </p>  
+    <%if c.user %>
       
-  <% end %>
+      <strong> <%=c.user.nickname%> </strong>at <%= c.created_at.localtime%>
+    
+    <% end %>
+    
+    <%if @user == current_user%>
+      <%=link_to "Delete Comment", post_comment_path(@post.id, c.id), :method => :delete %>
+    <%end%>
+
+    <% if @post.errors.any? %>
+    
+      <p> <%=@post.errors.full_messages[0] %> </p>  
+      
+    <% end %>
 
 
   </p>
 
 <% end %>
-
-<%= link_to"New Comment", new_post_comment_path(@post.id) %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

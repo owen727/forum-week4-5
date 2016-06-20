@@ -9,6 +9,9 @@ class PostsController < ApplicationController
     @posts = Post.page(params[:page]).per(15)  #分頁設法
     @post = Post.new
 
+    @user = current_user
+
+
   end
 
   def new
@@ -28,6 +31,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @user = @post.user
   end
 
 
@@ -65,7 +69,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :content, :user_id)
+      params.require(:post).permit(:title, :content, :user_id, :avatar)
       
     end
 
