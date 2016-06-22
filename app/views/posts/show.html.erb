@@ -15,7 +15,7 @@
 <br>
 
 
-<h2><%="This Post Has #{@post.comments.count} Replys" %></h2>
+
 
 <%if @user == current_user%>
   <%= link_to"New Comment", new_post_comment_path(@post.id) %>

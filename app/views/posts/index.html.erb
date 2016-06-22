@@ -3,6 +3,14 @@
 
 <h1>Super Information</h1>
 
+<h2>
+  Listed By
+  <%=link_to "Newest Post", posts_path( :order => "created_at desc") %> | 
+  <%= link_to "Most Commented", posts_path( :order => "comments_count desc") %> |
+  <%=link_to "Recently Commented", posts_path( :order => "comments.created_at desc") %>
+</h2> 
+
+
 <table>
 
   <!-- <th>
@@ -14,8 +22,13 @@
   <tbody>
     <% @posts.each do |p| %>
       <tr>
-        <td><%=link_to p.title , p %></td> 
+        <td>
+          <%=link_to p.title , p %> posted at 
+          <%= p.created_at%>
+          <%="This Post Has #{p.comments.count} Replys" %>
 
+        </td> 
+        
         <!-- <td> <%=link_to "Edit", p, :method => :patch %> </td> -->
         <%if current_user%>
         

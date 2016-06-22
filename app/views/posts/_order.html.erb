@@ -1,0 +1,4 @@
+
+<% a = Post.includes(:comments).order("comments.created_at desc")%>
+
+<%= a %>
