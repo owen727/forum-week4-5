@@ -1,5 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<p>Categry:
+  <% @post.categories.each do |g| %>
+    
+    <%= g.name %>
+  
+  <% end %>
+</p>
+
+
+
 <h2><%= @post.title %></h2>
 
 <%= image_tag @post.avatar.url(:medium) %> <br>
@@ -17,7 +27,7 @@
 
 
 
-<%if @user == current_user%>
+<%if current_user %>
   <%= link_to"New Comment", new_post_comment_path(@post.id) %>
 <%end%>
 

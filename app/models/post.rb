@@ -2,6 +2,9 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
   has_many :comments, :dependent => :delete_all
+  has_many :category_ships
+  has_many :categories , :through => :category_ships
+
 
     validates :title, 
       :presence => true

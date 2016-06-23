@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     # @posts = Post.all 
     # @posts = Post.includes(:comments).order("comments.created_at desc").page(params[:page]).per(8)  #回應時間排序+分頁設法
     # @posts = Post.joins(:comments).group("posts.id").order("count(comments.id) desc").page(params[:page]).per(8) #回應數量排序+分頁設法 0回應會不見
-    
+    # @posts = Post.includes(:comments).references(:comments).group("posts.id").order("count(comments.id) desc").page(params[:page]).per(8) #回應數量排序+分頁設法 0回應解決
 
     # if params[:order] == "comments.created_at desc" 
     #   sort_by = params[:order] 
@@ -17,6 +17,29 @@ class PostsController < ApplicationController
     # elsif params[:order] == "comments_count desc" 
     #   sort_by = params[:order]   
     # end
+
+    # 依照分類篩選文章(預留)
+    
+    # if params[:sort] && params[:sort] == "Fun"
+    #    @posts = Category.find_by(:name => "Fun").posts
+    #  elsif params[:sort] && params[:sort] == "Angry"
+    #    @posts = Category.find_by(:name => "Angry").posts
+    #  elsif params[:sort] && params[:sort] == "Share"
+    #    @posts = Category.find_by(:name => "Share").posts
+    # end
+    
+    case params[:sort]
+       when "Fun" then 
+       @posts = Category.find_by(:name => "Fun").posts
+       when "Angry" then 
+       @posts = Category.find_by(:name => "Angry").posts
+       when "Share"
+       @posts = Category.find_by(:name => "Share").posts
+      
+      return
+
+    end
+  
 
     case params[:order]
        when "comments.created_at desc" then 
@@ -27,11 +50,30 @@ class PostsController < ApplicationController
        sort_by = "created_at desc"
     end
 
-
-
     @posts = Post.includes(:comments).order(sort_by).page(params[:page]).per(8)
     @post = Post.new
     @user = current_user
+
+
+    # @category1 = Category.first.posts
+    # @category2 = Category.second.posts
+    # @category3 = Category.last.posts
+
+
+    # case params[:category_id]
+    #   when 1
+    #     @category = @category1
+    #   when 2
+    #     @category = @category2
+    #   when 3
+    #     @category = @category3 
+    # end  
+
+
+
+
+
+
 
 
 
@@ -81,7 +123,11 @@ class PostsController < ApplicationController
   end
 
 
-  
+  def about
+    @users = User.all
+    @posts = Post.all
+    @comments = Comment.all
+  end
 
 
 
@@ -92,7 +138,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :content, :user_id, :avatar)
+      params.require(:post).permit(:title, :content, :user_id, :avatar, :category_ids => [])
       
     end
 

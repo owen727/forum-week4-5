@@ -1,7 +1,7 @@
 <p id="alert"><%= alert %></p>
 
 
-<h1>Super Information</h1>
+
 
 <h2>
   Listed By
@@ -10,6 +10,18 @@
   <%=link_to "Recently Commented", posts_path( :order => "comments.created_at desc") %>
 </h2> 
 
+<!-- <h2>
+  Categories
+  <%=link_to "Fun"  %> | 
+  <%= link_to "Angry"  %> |
+  <%=link_to "Share"  %>
+</h2> -->
+<%= link_to "<Sort>Fun", posts_path(:sort => "Fun") %>
+<%= link_to "<Sort>Angry", posts_path(:sort => "Angry") %>
+<%= link_to "<Sort>Share", posts_path(:sort => "Love") %>
+<%= link_to "<Sort>None", posts_path %>
+
+<br><br>
 
 <table>
 

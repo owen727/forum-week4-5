@@ -1,0 +1,34 @@
+
+
+<table>
+    
+  <tbody>
+    <% @category.each do |c|   %>
+      <tr>
+        <td>
+          <%=link_to c.title , c %> posted at 
+          <%= c.created_at%>
+          <%="This Post Has #{c.comments.count} Replys" %>
+
+        </td> 
+        
+        <!-- <td> <%=link_to "Edit", p, :method => :patch %> </td> -->
+        <%if current_user%>
+        
+        <td>
+          <%=link_to "Edit", edit_post_path(c) %>
+        </td>
+
+        <td>
+          <%= link_to "Delete", c ,:method => :delete, :data => { :confirm => "Are you sure?" } %>
+        </td>
+
+        <% end %>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+

@@ -7,6 +7,9 @@
       
   <% end %>
   
+  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+  <br>
+  <br>
   
   <%=f.label :title %>
   <br>
