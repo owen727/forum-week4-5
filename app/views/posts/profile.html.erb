@@ -1,0 +1,43 @@
+
+<h3>Your Posts</h3>
+
+<% @posts.each do |p| %>
+  
+  <table>
+    
+    <tr>
+      
+      <td> <%= link_to p.title, p %> </td>
+    
+
+    </tr>
+  </table>
+
+<% end %>
+
+<h3>Your Comments</h3>
+
+<% @comments.each do |c| %>
+  
+  <table>
+    
+    <tr>
+      
+      <td> <%= link_to c.description, post_path(c.post_id)  %>  </td>
+    
+
+    </tr>
+  </table>
+
+<% end %>
+
+
+
+
+
+
+
+<br>
+
+
+<%= link_to "Back", posts_path %>

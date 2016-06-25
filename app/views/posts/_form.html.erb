@@ -8,25 +8,20 @@
   <% end %>
   
   <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
-  <br>
-  <br>
   
-  <%=f.label :title %>
-  <br>
-  <%=f.text_field :title %>
-  
-  <br><br>
+  <div class="form-group">
+    <%=f.label :title %>
+    <%=f.text_field :title, :class => "form-control" %>
+  </div>
 
-  <%=f.label :content %>
-  <br>
-  <%=f.text_area :content %>
+  <div class="form-group">
+    <%=f.label :content %>
+    <%=f.text_area :content, :class => "form-control" %>
+  </div>
   
-  <br>
-  <br>
   <%= f.file_field :avatar %>
-  <br>
-  <br>
-  <%=f.submit %>
+
+  <%=f.submit :class => "btn btn-default"%>
 
 
 

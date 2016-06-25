@@ -1,25 +1,16 @@
 <p id="alert"><%= alert %></p>
 
-
-
-
 <h2>
   Listed By
   <%=link_to "Newest Post", posts_path( :order => "created_at desc") %> | 
-  <%= link_to "Most Commented", posts_path( :order => "comments_count desc") %> |
+  <%=link_to "Most Commented", posts_path( :order => "comments_count desc") %> |
   <%=link_to "Recently Commented", posts_path( :order => "comments.created_at desc") %>
 </h2> 
 
-<!-- <h2>
-  Categories
-  <%=link_to "Fun"  %> | 
-  <%= link_to "Angry"  %> |
-  <%=link_to "Share"  %>
-</h2> -->
-<%= link_to "<Sort>Fun", posts_path(:sort => "Fun") %>
-<%= link_to "<Sort>Angry", posts_path(:sort => "Angry") %>
-<%= link_to "<Sort>Share", posts_path(:sort => "Love") %>
-<%= link_to "<Sort>None", posts_path %>
+<%= link_to "Fun", posts_path(:sort => "Fun"), :class => "btn btn-default" %>
+<%= link_to "Angry", posts_path(:sort => "Angry"), :class => "btn btn-default"  %>
+<%= link_to "Share", posts_path(:sort => "Share"), :class => "btn btn-default"  %>
+<%= link_to "None", posts_path , :class => "btn btn-default" %>
 
 <br><br>
 
@@ -35,26 +26,33 @@
     <% @posts.each do |p| %>
       <tr>
         <td>
-          <%=link_to p.title , p %> posted at 
-          <%= p.created_at%>
+          <%=link_to p.title , p %> 
+          by <%= p.user.nickname%>
+          posted at <%= p.created_at%>
           <%="This Post Has #{p.comments.count} Replys" %>
 
         </td> 
         
-        <!-- <td> <%=link_to "Edit", p, :method => :patch %> </td> -->
-        <%if current_user%>
         
-        <td>
-          <%=link_to "Edit", edit_post_path(p) %>
-        </td>
+        <% if current_user == nil %>
+        
 
-        <td>
-          <%= link_to "Delete", p ,:method => :delete, :data => { :confirm => "Are you sure?" } %>
-        </td>
-
+        <% elsif p.user.id == current_user.id  %>
+          
+          <td>
+            <%=link_to "Edit", posts_path(:post_id => p.id), :class => "btn btn-primary"  %>
+          </td>
+         
+            <% # TODO1:  Done %>
+            <% # 1. link_to index, add post_id %>
+            <% # 2. posts#index add one if else contion %>  
+          
+          <td>
+            <%= link_to "Delete", p, :page => (params[:page]), :method => :delete, :data => { :confirm => "Are you sure?" } , :class => "btn btn-danger" %>
+          </td>
+          
         <% end %>
-
-
+      
       </tr>
     <% end %>
   </tbody>
@@ -74,3 +72,8 @@
 <br>
 <br>
 <%= paginate @posts %>  <!-- kaminari設分頁 -->
+
+
+
+
+

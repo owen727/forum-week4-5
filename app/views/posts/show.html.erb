@@ -16,21 +16,10 @@
 
 <%= @post.content %>
 
+<% # TODO4 (Optional) %>
+<% # Remove br tag and use CSS instead Done %>
 
-<br>
-<br>
-<br>
-
-<br>
-<br>
-
-
-
-
-<%if current_user %>
-  <%= link_to"New Comment", new_post_comment_path(@post.id) %>
-<%end%>
-
+<% # TODO5 Review Git Done %>
 
 <% @post.comments.each do |c| %>
   
@@ -43,8 +32,8 @@
     
     <% end %>
     
-    <%if @user == current_user%>
-      <%=link_to "Delete Comment", post_comment_path(@post.id, c.id), :method => :delete %>
+    <%if c.user == current_user %>
+      <%=link_to "Delete Comment", post_comment_path(@post.id, c.id), :method => :delete, :class => "btn btn-warning" %>
     <%end%>
 
     <% if @post.errors.any? %>
@@ -59,10 +48,9 @@
 <% end %>
 
 
+<%if current_user %>
+  <%= link_to"Add Comment", new_post_comment_path(@post.id), :class => "btn btn-default" %>
+<%end%>
 
 
-
-
-<br>
-<br>
-<%=link_to "Back to All Posts", posts_path %>
+<%=link_to "Back to All Posts", posts_path, :class => "btn btn-default" %>

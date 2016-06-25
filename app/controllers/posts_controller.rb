@@ -5,6 +5,11 @@ class PostsController < ApplicationController
 
 
   def index
+
+    ## TODO2
+    # Remove all comments
+    # Commit your code!
+
     # @posts = Post.all 
     # @posts = Post.includes(:comments).order("comments.created_at desc").page(params[:page]).per(8)  #回應時間排序+分頁設法
     # @posts = Post.joins(:comments).group("posts.id").order("count(comments.id) desc").page(params[:page]).per(8) #回應數量排序+分頁設法 0回應會不見
@@ -28,19 +33,6 @@ class PostsController < ApplicationController
     #    @posts = Category.find_by(:name => "Share").posts
     # end
     
-    case params[:sort]
-       when "Fun" then 
-       @posts = Category.find_by(:name => "Fun").posts
-       when "Angry" then 
-       @posts = Category.find_by(:name => "Angry").posts
-       when "Share"
-       @posts = Category.find_by(:name => "Share").posts
-      
-      return
-
-    end
-  
-
     case params[:order]
        when "comments.created_at desc" then 
        sort_by = params[:order]
@@ -50,10 +42,30 @@ class PostsController < ApplicationController
        sort_by = "created_at desc"
     end
 
-    @posts = Post.includes(:comments).order(sort_by).page(params[:page]).per(8)
-    @post = Post.new
-    @user = current_user
+    @posts = Post.includes(:comments).order(sort_by)
 
+
+    case params[:sort]
+       
+       when "Fun" then 
+       @posts = Category.find_by(:name => "Fun").posts
+       when "Angry" then 
+       @posts = Category.find_by(:name => "Angry").posts
+       when "Share"
+       @posts = Category.find_by(:name => "Share").posts
+      
+    end
+  
+    @posts = @posts.page(params[:page]).per(8)
+    
+
+    unless params[:post_id] == nil
+      @post = Post.find(params[:post_id])
+    else 
+      @post = Post.new
+    end 
+        
+    @user = current_user
 
     # @category1 = Category.first.posts
     # @category2 = Category.second.posts
@@ -68,20 +80,10 @@ class PostsController < ApplicationController
     #   when 3
     #     @category = @category3 
     # end  
-
-
-
-
-
-
-
-
-
   end
 
   def new
     @post = Post.new
-
   end
 
 
@@ -91,7 +93,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, :notice => 'New Post successfully created.'
     else
-      render new_post_path
+      @posts = Post.includes(:comments).page(params[:page]).per(8)
+      render "index" # index.html.erb
     end
   end
 
@@ -103,7 +106,6 @@ class PostsController < ApplicationController
   def edit
   end
 
-
   def update    
     if @post.update(post_params)
       redirect_to post_path, :notice => 'Post successfully edited.'
@@ -112,14 +114,14 @@ class PostsController < ApplicationController
     end
   end
 
-
-
   def destroy    
-    @post.destroy
-
-    redirect_to :back, #問設參數 :page = params[:page]) 的作法
-
+  
+    @post.destroy                                       
+    
+    redirect_to posts_path(:page => params[:page]),  #設參數 :page = params[:page]) 的作法    #redirect_to :back,  直接back作法 會有一點問題
+    
     :alert => 'Post Deleted.'
+  
   end
 
 
@@ -127,6 +129,12 @@ class PostsController < ApplicationController
     @users = User.all
     @posts = Post.all
     @comments = Comment.all
+  end
+
+
+  def profile
+   @posts = current_user.posts
+   @comments = Comment.all
   end
 
 
@@ -139,7 +147,6 @@ class PostsController < ApplicationController
 
     def post_params
       params.require(:post).permit(:title, :content, :user_id, :avatar, :category_ids => [])
-      
     end
 
 
