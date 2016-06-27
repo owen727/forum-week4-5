@@ -29,11 +29,12 @@
           <%=link_to p.title , p %> 
           by <%= p.user.nickname%>
           posted at <%= p.created_at%>
+          
           <%="This Post Has #{p.comments.count} Replys" %>
 
+
         </td> 
-        
-        
+
         <% if current_user == nil %>
         
 

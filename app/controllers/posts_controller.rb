@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user!, :except =>[:index, :show ]
-  before_action :find_post, :only => [:show, :edit, :update, :destroy] #設定當前post
+  before_action :find_post, :only => [:show, :edit, :update, :destroy]#設定當前post
 
 
   def index
@@ -100,6 +100,10 @@ class PostsController < ApplicationController
 
   def show
     @user = @post.user
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js  # show.js.erb
+    end
   end
 
 

@@ -2,16 +2,17 @@ Rails.application.routes.draw do
 
 
   get "/profile" => "posts#profile"
+  get "/about" => "posts#about"
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   
   resources :posts do
-    resources :comments
+    resources :likes
+  end
+  
 
-    collection do
-      get :about
-    end
-
+  resources :posts do
+    resources :comments 
   end
 
   resources :categories

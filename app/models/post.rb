@@ -22,4 +22,10 @@ class Post < ActiveRecord::Base
   end
 
 
+  def find_my_like(user)
+    self.likes.where( :user => user ).first
+  end
+
+
+
 end
