@@ -21,6 +21,7 @@ gem "paperclip"
 gem 'devise'
 gem 'better_errors'
 gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 gem 'rest-client'
 
 # Use jquery as the JavaScript library
