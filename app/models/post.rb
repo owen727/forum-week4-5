@@ -5,6 +5,9 @@ class Post < ActiveRecord::Base
   has_many :category_ships
   has_many :categories , :through => :category_ships
 
+  has_many :likes
+  has_many :liked_users, :through => :likes, :source => :user
+
 
     validates :title, 
       :presence => true

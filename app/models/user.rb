@@ -5,8 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
-has_many :posts
-has_many :comments
+  has_many :posts
+  has_many :comments
+
+  has_many :likes
+  has_many :like_posts, :through => :likes, :source => :post
+
 
 
 def self.from_omniauth(auth)
