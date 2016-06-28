@@ -24,14 +24,12 @@
 <% @post.comments.each do |c| %>
   
   <p> 
-    <span> <%= c.description %> </span> Posted by 
-    
-    <%if c.user %>
+    <div id="comment-block">
       
-      <strong> <%=c.user.nickname%> </strong>at <%= c.created_at.localtime%>
-    
-    <% end %>
-    
+      <%= render :partial => "posts/comment", :locals => { :c => c }%>
+      
+    </div>
+   
     <%if c.user == current_user %>
       <%=link_to "Delete Comment", post_comment_path(@post.id, c.id), :method => :delete, :class => "btn btn-warning" %>
     <%end%>

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+  before_action :authenticate_user!
   before_action :find_post, :only => [:show, :new, :edit, :create, :destroy] #設定當前post
 
 
@@ -35,8 +35,11 @@ class CommentsController < ApplicationController
   def destroy
     
     @comment = @post.comments.find(params[:id])
+
     @comment.destroy
+    
     render "posts/show"
+
   end
 
   # TODO3
