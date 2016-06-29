@@ -17,13 +17,30 @@
 
 <h3>Your Comments</h3>
 
-<% @comments.each do |c| %>
+<% current_user.comments.each do |c| %>
   
   <table>
     
     <tr>
       
       <td> <%= link_to c.description, post_path(c.post_id)  %>  </td>
+    
+
+    </tr>
+  </table>
+
+<% end %>
+
+<h3>Posts You Like</h3>
+
+<% @likes = Like.all %>
+<% @likes.each do |like| %>
+  
+  <table>
+    
+    <tr>
+      
+      <td> <%= link_to like.post.title, post_path(like.post)  %>  </td>
     
 
     </tr>

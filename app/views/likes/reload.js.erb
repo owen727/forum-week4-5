@@ -1,2 +1,3 @@
 
 $("#like-block").html("<%=j render :partial => "likes/like", :locals => { :like => @like } %>");
+$("#liked-users").html("<%=j render :partial => "posts/liked_users", :locals => { :like => @like } %>");

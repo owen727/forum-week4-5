@@ -12,7 +12,9 @@
 
 <h2><%= @post.title %></h2>
 
-<%= image_tag @post.avatar.url(:medium) %> <br>
+<%if @post.avatar.exists? %>
+  <%= image_tag @post.avatar.url(:medium) %> <br>
+<% end %>
 
 <%= @post.content %>
 
@@ -48,8 +50,15 @@
 <br>
 
 <% like = @post.find_my_like(current_user) %>
+
 <div id="like-block">
   <%= render :partial => "likes/like", :locals => { :like => like } %>
+</div>
+
+<div id="liked-users">
+
+  <%= render :partial => "posts/liked_users"%>
+
 </div>
 
 
