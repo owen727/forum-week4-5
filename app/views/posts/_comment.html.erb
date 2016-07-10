@@ -1,6 +1,6 @@
 
-
-<span> <%= c.description %> </span> Posted by 
-<%if c.user %>        
-  <strong> <%=c.user.nickname%> </strong>at <%= c.created_at.localtime%>
+<%#byebug%>
+<span> <%= comment.description %> </span> Posted by 
+<%if comment.user %>        
+  <strong> <%=comment.user.nickname%> </strong>at <%#= comment.created_at.localtime%>
 <% end %>    

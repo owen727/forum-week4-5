@@ -99,11 +99,16 @@ class PostsController < ApplicationController
   end
 
   def show
+
+    @comment = Comment.new
+
     @user = @post.user
     respond_to do |format|
       format.html # show.html.erb
       format.js  # show.js.erb
     end
+
+
   end
 
 
@@ -137,6 +142,7 @@ class PostsController < ApplicationController
 
 
   def profile
+   
    @posts = current_user.posts
    @comments = Comment.all
   end

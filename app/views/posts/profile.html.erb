@@ -34,7 +34,7 @@
 <h3>Posts You Like</h3>
 
 <% @likes = Like.all %>
-<% @likes.each do |like| %>
+<% current_user.likes.each do |like| %>
   
   <table>
     

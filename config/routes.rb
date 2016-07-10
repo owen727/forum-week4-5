@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
 
-  get "/profile" => "posts#profile"
+  get "/profile/:nickname" => "posts#profile", :as => "profile/"
+  
   get "/about" => "posts#about"
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

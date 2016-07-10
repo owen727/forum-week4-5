@@ -16,19 +16,21 @@ class CommentsController < ApplicationController
 
   def new
     
-    @comment = Comment.new
+    @comment = @post.comments.new   #Comment.new
+
   end
 
   def create
-    
     @comment = @post.comments.create(params[:comment].permit(:description, :user_id))
     @comment.user_id = current_user.id if current_user
-    @comment.save
+    #@comment.save
 
     if @comment.save
       redirect_to post_path(@post)
     else
-       render "new"
+      #render "posts/show" 
+      #redirect_to post_path(@post)
+      render "posts/show"
     end
   end
 
@@ -38,7 +40,7 @@ class CommentsController < ApplicationController
 
     @comment.destroy
     
-    render "posts/show"
+    render "posts/show" #ajax delete
 
   end
 
